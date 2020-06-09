@@ -12,12 +12,12 @@ addons:
 script:
   - curl -fsSL https://git.io/JerYI | GITHUB_USER=horta GITHUB_PROJECT=logaddexp DO_CMD=sudo bash
   - curl -fsSL https://git.io/JerYI | GITHUB_USER=EBI-Metagenomics GITHUB_PROJECT=imm DO_CMD=sudo bash
-  - test -e $TRAVIS_BUILD_DIR/prefix/include/imm/imm.h
-  - test -e $TRAVIS_BUILD_DIR/prefix/lib/cmake/imm/imm-config.cmake
-  - test -e $TRAVIS_BUILD_DIR/prefix/lib/cmake/imm/imm-targets-release.cmake
-  - test -e $TRAVIS_BUILD_DIR/prefix/lib/cmake/imm/imm-targets.cmake
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then otool -l $TRAVIS_BUILD_DIR/prefix/lib/libimm.dylib | grep -q LC_RPATH; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then test -e $TRAVIS_BUILD_DIR/prefix/lib/libimm.so; fi
+  - test -e /usr/local/include/imm/imm.h
+  - test -e /usr/local/lib/cmake/imm/imm-config.cmake
+  - test -e /usr/local/lib/cmake/imm/imm-targets-release.cmake
+  - test -e /usr/local/lib/cmake/imm/imm-targets.cmake
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then otool -l /usr/local/lib/libimm.dylib | grep -q LC_RPATH; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then test -e $TRAVIS_BUILD_DIR/lib/libimm.so; fi
 notifications:
   email:
     recipients:
