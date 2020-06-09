@@ -1,0 +1,26 @@
+language: c
+jobs:
+  include:
+    - os: linux
+      sudo: required
+      before_script: test -e /usr/bin/cmake || sudo ln -s $(which cmake) /usr/bin/cmake
+    - os: osx
+addons:
+  apt:
+    packages:
+      - cmake
+script:
+  - curl -fsSL https://git.io/JerYI | GITHUB_USER=horta GITHUB_PROJECT=logaddexp DO_CMD=sudo bash
+  - curl -fsSL https://git.io/JerYI | GITHUB_USER=EBI-Metagenomics GITHUB_PROJECT=imm DO_CMD=sudo bash
+  - test -e $TRAVIS_BUILD_DIR/prefix/include/imm/imm.h
+  - test -e $TRAVIS_BUILD_DIR/prefix/lib/cmake/imm/imm-config.cmake
+  - test -e $TRAVIS_BUILD_DIR/prefix/lib/cmake/imm/imm-targets-release.cmake
+  - test -e $TRAVIS_BUILD_DIR/prefix/lib/cmake/imm/imm-targets.cmake
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then otool -l $TRAVIS_BUILD_DIR/prefix/lib/libimm.dylib | grep -q LC_RPATH; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then test -e $TRAVIS_BUILD_DIR/prefix/lib/libimm.so; fi
+notifications:
+  email:
+    recipients:
+      - danilo.horta@pm.me
+    on_success: never
+    on_failure: always
