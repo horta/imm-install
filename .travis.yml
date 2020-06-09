@@ -17,7 +17,7 @@ script:
   - test -e /usr/local/lib/cmake/imm/imm-targets-release.cmake
   - test -e /usr/local/lib/cmake/imm/imm-targets.cmake
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then otool -l /usr/local/lib/libimm.dylib | grep -q LC_RPATH; fi
-  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then test -e $TRAVIS_BUILD_DIR/lib/libimm.so; fi
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then test -e /usr/local/lib/libimm.so; fi
 notifications:
   email:
     recipients:
